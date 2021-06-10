@@ -1,0 +1,53 @@
+<?php
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class ExampleTest extends TestCase
+{
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+        $this->assertTrue(true);
+    }
+    public function testexamp()
+    {
+        $response = $this->get('/index');
+        $response->assertStatus(200);
+    }
+
+
+public function testDatabase()
+    {
+        $this->assertDatabaseHas('users', [
+            'name' => 'Elsa'
+        ]);
+    }
+    public function testDatabaseuser()
+    {
+        $this->assertDatabaseHas('users', [
+          'email'=>'eshanahan@example.org'
+        ]);
+    }
+    
+     public function book_can_be_added_to_librariy()
+    {
+        $this->withoutExptionHandling();
+        $response = $this->post('/books',[
+            'title'=>'the lord',
+            'author'=>'victor',
+        ]);
+
+
+        $response->asserOk();
+        $this->assertCount(1,\App\Book::all());
+
+
+    }
